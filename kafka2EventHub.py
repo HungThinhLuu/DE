@@ -27,12 +27,15 @@ def send(tmp):
         s = s + col[i] + ": " + str(tmp[i]) + "-"'''
     s = {}
     for i in range(0, 5):
-        s[col[i]] = tmp[i]
+        if i == 3:
+            s[col[i]] = int(tmp[i])
+        else:
+            s[col[i]] = tmp[i]
     print("Message: ", s)
     producer.send(TOPIC, value = json.dumps(s).encode('utf-8'))
 
 import time
-timing = 5
+timing = 1
 for i in range(df.shape[0]-1, -1, -1):
     tmp = list(df.loc[i])
     send(tmp)
